@@ -1,15 +1,25 @@
+from typing import Dict
+
+
 class Maze:
     """Class represents the whole maze"""
 
     class Cell:
         """Class represents the specific cell"""
 
+        OPPOSITE_DIR = {
+            "L": "R",
+            "R": "L",
+            "U": "D",
+            "D": "U",
+        }
+
         def __init__(self, col_id: int, row_id: int) -> None:
             self.x = col_id
             self.y = row_id
 
             self.visited = False
-            self.neighbours = {
+            self.neighbours: Dict[str, Maze.Cell or None] = {
                 "L": None,
                 "R": None,
                 "U": None,
@@ -48,9 +58,6 @@ class Maze:
             for row_id in range(self.height)
         ]
 
-        # start point is left upper corner
-        self.start_from = self.maze_grid[0][0]
-
         # calculates a new cell coordinates after the move
         self.directions = {
             "L": lambda x, y: (x - 1, y),
@@ -58,6 +65,9 @@ class Maze:
             "U": lambda x, y: (x, y - 1),
             "D": lambda x, y: (x, y + 1),
         }
+
+        # populate the neighbours for each cell
+        self.fill_cell_neighbours()
 
     def fill_cell_neighbours(self):
         """Function parse through each cell and assigns neighbour cells for each direction"""
