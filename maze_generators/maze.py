@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-class Maze:
+class Maze(object):
     """Class represents the whole maze"""
 
     class Cell:

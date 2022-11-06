@@ -2,7 +2,7 @@ from maze_generators.backtracking_iterative import BacktrackingIterativeGenerato
 from visual.text_visualize import visualize
 
 if __name__ == "__main__":
-    maze = BacktrackingIterativeGenerator()
+    maze = BacktrackingIterativeGenerator(height=10)
     maze.generate()
 
-    visualize(maze.maze, show_cli=False, export=True)
+    visualize(maze.maze_grid, show_cli=False, export=True)

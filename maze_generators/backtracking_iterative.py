@@ -3,12 +3,11 @@ import random
 from .maze import Maze
 
 
-class BacktrackingIterativeGenerator:
-    def __init__(self, maze_height: int = 20, maze_width: int = 20) -> None:
-        self.maze = Maze(height=maze_height, width=maze_width)
-
-        # start point is left upper corner
-        self.start_from = self.maze.maze_grid[0][0]
+class BacktrackingIterativeGenerator(Maze):   
+    def __init__(self, height: int = 20, width: int = 20) -> None:
+        super().__init__(height, width)
+        
+        self.start_from = self.maze_grid[0][0]
 
         self.stack = []
 
@@ -17,7 +16,7 @@ class BacktrackingIterativeGenerator:
         self.start_from.visited = True
 
         while self.stack:
-            current_cell: Maze.Cell = self.stack.pop()
+            current_cell: self.Cell = self.stack.pop()
 
             # get possible moves among not visited neighbours
             possible_moves = [
@@ -41,4 +40,4 @@ class BacktrackingIterativeGenerator:
 
             # remove walls between cells
             current_cell.walls[move[0]] = False
-            move[1].walls[Maze.Cell.OPPOSITE_DIR[move[0]]] = False
+            move[1].walls[self.Cell.OPPOSITE_DIR[move[0]]] = False

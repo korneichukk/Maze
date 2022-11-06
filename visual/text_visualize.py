@@ -53,12 +53,12 @@ CELL_TYPES = {
 }
 
 
-def visualize(maze, show_cli: bool = True, export: bool = False):
-    assert maze
+def visualize(maze_grid, show_cli: bool = True, export: bool = False):
+    assert maze_grid
 
     text_maze = ""
 
-    for row in maze.maze_grid:
+    for row in maze_grid:
         row_cell_types = [cell.cell_type() for cell in row]
         text_maze += "".join([CELL_TYPES[cell_type][0] for cell_type in row_cell_types])
         text_maze += "\n"
@@ -76,7 +76,7 @@ def visualize(maze, show_cli: bool = True, export: bool = False):
 
         os.makedirs(PATH, exist_ok=True)
 
-        PATH = os.path.join(PATH, f"{len(maze.maze_grid)}*{len(maze.maze_grid[0])}.txt")
+        PATH = os.path.join(PATH, f"{len(maze_grid)}*{len(maze_grid[0])}.txt")
 
         with open(PATH, "w") as file:
             file.write(text_maze.strip())
