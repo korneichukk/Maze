@@ -1,6 +1,8 @@
 from maze_generators.backtracking_iterative import BacktrackingIterativeGenerator
-
-import numpy as np
+from visual.text_visualize import visualize
 
 if __name__ == "__main__":
-    maze = BacktrackingIterativeGenerator(maze_height=7, maze_width=7)
+    maze = BacktrackingIterativeGenerator()
+    maze.generate()
+
+    visualize(maze.maze, show_cli=False, export=True)
