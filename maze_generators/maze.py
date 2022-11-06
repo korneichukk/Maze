@@ -17,6 +17,7 @@ class Maze(object):
         def __init__(self, col_id: int, row_id: int) -> None:
             self.x = col_id
             self.y = row_id
+            self.type = ""
 
             self.visited = False
             self.neighbours: Dict[str, Maze.Cell or None] = {
@@ -45,8 +46,8 @@ class Maze(object):
                         "RUD": │ └
                                │ ┌
             """
-
-            return "".join([dirr for dirr, wall in self.walls.items() if not wall])
+            self.type = "".join([dirr for dirr, wall in self.walls.items() if not wall])
+            return self.type
 
     def __init__(self, height: int = 20, width: int = 20) -> None:
         self.height = height

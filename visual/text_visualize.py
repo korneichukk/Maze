@@ -59,7 +59,7 @@ def visualize(maze_grid, show_cli: bool = True, export: bool = False):
     text_maze = ""
 
     for row in maze_grid:
-        row_cell_types = [cell.cell_type() for cell in row]
+        row_cell_types = [cell.type or cell.cell_type() for cell in row]
         text_maze += "".join([CELL_TYPES[cell_type][0] for cell_type in row_cell_types])
         text_maze += "\n"
         text_maze += "".join([CELL_TYPES[cell_type][1] for cell_type in row_cell_types])
