@@ -103,7 +103,101 @@ class SVGWall(SVGCell):
         if self.type == "L":
             self.type_L()
 
+        if self.type == "R":
+            self.type_R()
+
+        if self.type == "U":
+            self.type_U()
+
+        if self.type == "D":
+            self.type_D()
+
+        if self.type == "LR":
+            self.type_LR()
+
+        if self.type == "LU":
+            self.type_LU()
+
+        if self.type == "LD":
+            self.type_LD()
+
+        if self.type == "RU":
+            self.type_RU()
+
+        if self.type == "RD":
+            self.type_RD()
+
+        if self.type == "UD":
+            self.type_UD()
+
+        if self.type == "LRU":
+            self.type_LRU()
+
+        if self.type == "LRD":
+            self.type_LRD()
+
+        if self.type == "LUD":
+            self.type_LUD()
+
+        if self.type == "RUD":
+            self.type_RUD()
+
+        if self.type == "LRUD":
+            self.type_LRUD()
+
         return self.svg_path.substitute(d=self.d)
+
+    def luc_wall(self):
+        # making ┘ left upper corner
+        self.d_m(x_shift=0, y_shift=QUARTER)
+        self.d_a(
+            rx=QUARTER,
+            ry=QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=QUARTER,
+            y_end_shift=0,
+        )
+
+    def ruc_wall(self):
+        # making └ rigth upper corner
+        self.d_m(x_shift=THREE_QUARTER, y_shift=0)
+        self.d_a(
+            rx=QUARTER,
+            ry=QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=CELL_SIZE,
+            y_end_shift=QUARTER,
+        )
+
+    def llc_wall(self):
+        # making ┐ left lower corner
+        self.d_m(x_shift=0, y_shift=THREE_QUARTER)
+        self.d_a(
+            rx=QUARTER,
+            ry=QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=1,
+            x_end_shift=QUARTER,
+            y_end_shift=CELL_SIZE,
+        )
+
+    def rlc_wall(self):
+        # making ┌ rigth lower corner
+        self.d_m(x_shift=THREE_QUARTER, y_shift=CELL_SIZE)
+        self.d_a(
+            rx=QUARTER,
+            ry=QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=1,
+            x_end_shift=CELL_SIZE,
+            y_end_shift=THREE_QUARTER,
+        )
 
     def type_L(self):
         """
@@ -139,6 +233,304 @@ class SVGWall(SVGCell):
             x_end_shift=HALF,
             y_end_shift=QUARTER * 7 / 2,
         )
+
+    def type_R(self):
+        """
+        R: ┌──
+           └──
+        """
+
+        self.d_m(x_shift=CELL_SIZE, y_shift=QUARTER)
+        self.d_c(
+            x_start_curve_shift=THREE_QUARTER,
+            y_start_curve_shift=QUARTER,
+            x_end_curve_shift=THIRD * 2,
+            y_end_curve_shift=QUARTER / 2,
+            x_end_shift=HALF,
+            y_end_shift=QUARTER / 2,
+        )
+
+        self.d_a(
+            rx=THREE_QUARTER / 2,
+            ry=THREE_QUARTER / 2,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=HALF,
+            y_end_shift=QUARTER * 7 / 2,
+        )
+
+        self.d_m(x_shift=CELL_SIZE, y_shift=THREE_QUARTER)
+        self.d_c(
+            x_start_curve_shift=THREE_QUARTER,
+            y_start_curve_shift=THREE_QUARTER,
+            x_end_curve_shift=THIRD * 2,
+            y_end_curve_shift=QUARTER * 7 / 2,
+            x_end_shift=HALF,
+            y_end_shift=QUARTER * 7 / 2,
+        )
+
+    def type_U(self):
+        """
+        U: │ │
+           └─┘
+        """
+        self.d_m(x_shift=QUARTER, y_shift=0)
+        self.d_c(
+            x_start_curve_shift=QUARTER,
+            y_start_curve_shift=QUARTER,
+            x_end_curve_shift=QUARTER / 2,
+            y_end_curve_shift=THIRD,
+            x_end_shift=QUARTER / 2,
+            y_end_shift=HALF,
+        )
+
+        self.d_a(
+            rx=THREE_QUARTER / 2,
+            ry=THREE_QUARTER / 2,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=QUARTER * 7 / 2,
+            y_end_shift=HALF,
+        )
+
+        self.d_m(x_shift=THREE_QUARTER, y_shift=0)
+        self.d_c(
+            x_start_curve_shift=THREE_QUARTER,
+            y_start_curve_shift=QUARTER,
+            x_end_curve_shift=QUARTER * 7 / 2,
+            y_end_curve_shift=THIRD,
+            x_end_shift=QUARTER * 7 / 2,
+            y_end_shift=HALF,
+        )
+
+    def type_D(self):
+        """
+        D: ┌─┐
+           │ │
+        """
+        self.d_m(x_shift=QUARTER, y_shift=CELL_SIZE)
+        self.d_c(
+            x_start_curve_shift=QUARTER,
+            y_start_curve_shift=THREE_QUARTER,
+            x_end_curve_shift=QUARTER / 2,
+            y_end_curve_shift=THIRD * 2,
+            x_end_shift=QUARTER / 2,
+            y_end_shift=HALF,
+        )
+
+        self.d_a(
+            rx=THREE_QUARTER / 2,
+            ry=THREE_QUARTER / 2,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=1,
+            x_end_shift=QUARTER * 7 / 2,
+            y_end_shift=HALF,
+        )
+
+        self.d_m(x_shift=THREE_QUARTER, y_shift=CELL_SIZE)
+        self.d_c(
+            x_start_curve_shift=THREE_QUARTER,
+            y_start_curve_shift=THREE_QUARTER,
+            x_end_curve_shift=QUARTER * 7 / 2,
+            y_end_curve_shift=THIRD * 2,
+            x_end_shift=QUARTER * 7 / 2,
+            y_end_shift=HALF,
+        )
+
+    def type_LR(self):
+        """
+        LR: ───
+            ───
+        """
+        # making horizontal upper line
+        self.d_m(x_shift=0, y_shift=QUARTER)
+        self.d_l(x_shift=CELL_SIZE, y_shift=QUARTER)
+
+        # making horizontal lower line
+        self.d_m(x_shift=0, y_shift=THREE_QUARTER)
+        self.d_l(x_shift=CELL_SIZE, y_shift=THREE_QUARTER)
+
+    def type_LU(self):
+        """
+        LU: ┘ │
+            ──┘
+        """
+
+        self.luc_wall()
+
+        # making    │
+        #        ──┘
+        self.d_m(x_shift=0, y_shift=THREE_QUARTER)
+        self.d_a(
+            rx=THREE_QUARTER,
+            ry=THREE_QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=THREE_QUARTER,
+            y_end_shift=0,
+        )
+
+    def type_LD(self):
+        """
+        LD: ──┐
+            ┐ │
+        """
+
+        # making ┐ left lower corner
+        self.llc_wall()
+
+        # making   ──┐
+        #           │
+        self.d_m(x_shift=0, y_shift=QUARTER)
+        self.d_a(
+            rx=THREE_QUARTER,
+            ry=THREE_QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=1,
+            x_end_shift=THREE_QUARTER,
+            y_end_shift=CELL_SIZE,
+        )
+
+    def type_RU(self):
+        """
+        RU: │ └
+            └──
+        """
+
+        # making └ rigth upper corner
+        self.ruc_wall()
+
+        # making │
+        #       └──
+        self.d_m(x_shift=QUARTER, y_shift=0)
+        self.d_a(
+            rx=THREE_QUARTER,
+            ry=THREE_QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=0,
+            x_end_shift=CELL_SIZE,
+            y_end_shift=THREE_QUARTER,
+        )
+
+    def type_RD(self):
+        """
+        RU: ┌──
+            │ ┌
+        """
+
+        # making ┌ rigth lower corner
+        self.rlc_wall()
+
+        # making │
+        #       └──
+        self.d_m(x_shift=QUARTER, y_shift=CELL_SIZE)
+        self.d_a(
+            rx=THREE_QUARTER,
+            ry=THREE_QUARTER,
+            angle=0,
+            large_arc_flag=0,
+            sweep_flag=1,
+            x_end_shift=CELL_SIZE,
+            y_end_shift=QUARTER,
+        )
+
+    def type_UD(self):
+        """
+        UD: │ │
+            │ │
+        """
+
+        # making vertical left line
+        self.d_m(x_shift=QUARTER, y_shift=0)
+        self.d_l(x_shift=QUARTER, y_shift=CELL_SIZE)
+
+        # making vertical right line
+        self.d_m(x_shift=THREE_QUARTER, y_shift=0)
+        self.d_l(x_shift=THREE_QUARTER, y_shift=CELL_SIZE)
+
+    def type_LRU(self):
+        """
+        LRU: ┘ └
+             ───
+        """
+        # making ┘ left upper corner
+        self.luc_wall()
+
+        # making └ rigth upper corner
+        self.ruc_wall()
+
+        # making horizontal lower line
+        self.d_m(x_shift=0, y_shift=THREE_QUARTER)
+        self.d_l(x_shift=CELL_SIZE, y_shift=THREE_QUARTER)
+
+    def type_LRD(self):
+        """
+        LRD: ───
+             ┐ ┌
+        """
+        # making ┐ left lower corner
+        self.llc_wall()
+
+        # making ┌ rigth lower corner
+        self.rlc_wall()
+
+        # making horizontal upper line
+        self.d_m(x_shift=0, y_shift=QUARTER)
+        self.d_l(x_shift=CELL_SIZE, y_shift=QUARTER)
+
+    def type_LUD(self):
+        """
+        LUD: ┘ │
+             ┐ │
+        """
+        # making ┘ left upper corner
+        self.luc_wall()
+
+        # making ┐ left lower corner
+        self.llc_wall()
+
+        # making vertical right line
+        self.d_m(x_shift=THREE_QUARTER, y_shift=0)
+        self.d_l(x_shift=THREE_QUARTER, y_shift=CELL_SIZE)
+
+    def type_RUD(self):
+        """
+        RUD: │ └
+             │ ┌
+        """
+        # making └ rigth upper corner
+        self.ruc_wall()
+
+        # making ┌ rigth lower corner
+        self.rlc_wall()
+
+        # making vertical left line
+        self.d_m(x_shift=QUARTER, y_shift=0)
+        self.d_l(x_shift=QUARTER, y_shift=CELL_SIZE)
+
+    def type_LRUD(self):
+        """
+        LRUD: ┘ └
+              ┐ ┌
+        """
+
+        # making ┘ left upper corner
+        self.luc_wall()
+
+        # making └ rigth upper corner
+        self.ruc_wall()
+
+        # making ┐ left lower corner
+        self.llc_wall()
+
+        # making ┌ rigth lower corner
+        self.rlc_wall()
 
 
 def SVGVisualize(maze_grid):
